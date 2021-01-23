@@ -63,7 +63,7 @@ node {
 
         stage('quality analysis') {
             withSonarQubeEnv('sonar') {
-                sh "./gradlew sonarqube --no-daemon"
+                sh "./gradlew jacocoTestReport sonarqube --no-daemon"
             }
         }
         // stage('deployment') {
