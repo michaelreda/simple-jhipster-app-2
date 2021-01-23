@@ -14,6 +14,10 @@ node {
             sh "chmod +x gradlew"
             sh "./gradlew clean --no-daemon"
         }
+
+        stage('QA Team certification') {
+            input "Deploy to prod?"
+        }
         // stage('nohttp') {
         //     sh "./gradlew checkstyleNohttp --no-daemon"
         // }

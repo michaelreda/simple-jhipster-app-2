@@ -7,6 +7,5 @@ services:
       - SPRING_PROFILES_ACTIVE=prod,swagger
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
-      - HEROKU_API_KEY=7d42e832-7853-47fd-839f-6261837409b2
     ports:
       - 8080:8080
