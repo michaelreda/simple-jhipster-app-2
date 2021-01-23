@@ -35,6 +35,9 @@
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": false,
-    "blueprints": []
+    "blueprints": [],
+    "herokuAppName": "simple-app-2",
+    "herokuDeployType": "jar",
+    "herokuJavaVersion": "11"
   }
 }
