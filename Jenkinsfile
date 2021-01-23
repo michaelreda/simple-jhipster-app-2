@@ -75,8 +75,8 @@ node {
             // sh 'mkdir ./snyk'
             sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
             sh 'chmod +x snyk'
-            sh './snyk test --all-projects'
-            sh './snyk monitor --all-projects'
+            sh 'sudo ./snyk test --all-projects'
+            sh 'sudo ./snyk monitor --all-projects'
         }
 
         // stage('QA Team certification') {
