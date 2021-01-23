@@ -51,24 +51,26 @@ node {
         //     }
         // }
 
-        stage('packaging') {
-            sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
-            archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
-        }
+        // stage('packaging') {
+        //     sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
+        //     archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+        // }
 
-        stage('QA Team certification') {
-            input "Deploy to prod?"
+        // stage('QA Team certification') {
+        //     input "Deploy to prod?"
+        // }
+
+
+        stage('quality analysis') {
+            withSonarQubeEnv('sonar') {
+                sh "./gradlew sonarqube --no-daemon"
+            }
         }
-        stage('deployment') {
-            sh "./gradlew deployHeroku --no-daemon"
-        }
+        // stage('deployment') {
+        //     sh "./gradlew deployHeroku --no-daemon"
+        // }
     }
 
-    stage('quality analysis') {
-        withSonarQubeEnv('sonar') {
-            sh "./gradlew sonarqube --no-daemon"
-        }
-    }
 
     def dockerImage
     stage('publish docker') {
