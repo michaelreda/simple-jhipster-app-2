@@ -15,5 +15,7 @@ eureka:
     hostname: simple-app-2.herokuapp.com
     non-secure-port: 80
     prefer-ip-address: false
+    environment:
+      - HEROKU_API_KEY=7d42e832-7853-47fd-839f-6261837409b2
 
 spring:
