@@ -31,8 +31,8 @@ node {
             sh "npm run prettier:format"
         }
 
-        parallel {
-            stage('backend tests') {
+        parallel firstBranch: {
+             stage('backend tests') {
                 try {
                     sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
                 } catch(err) {
@@ -42,6 +42,7 @@ node {
                 }
             }
 
+        }, secondBranch: {
             stage('frontend tests') {
                 try {
                     sh "./gradlew npm_run_test -PnodeInstall --no-daemon"
