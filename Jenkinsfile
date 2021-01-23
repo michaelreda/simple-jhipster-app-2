@@ -31,7 +31,7 @@ node {
         //     sh "npm run prettier:format"
         // }
 
-        state('tests') {
+        stage('tests') {
             parallel firstBranch: {
                  stage('backend tests') {
                     try {
