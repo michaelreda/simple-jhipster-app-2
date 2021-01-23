@@ -10,18 +10,18 @@ node {
             sh "java -version"
         }
 
-        stage('clean') {
-            sh "chmod +x gradlew"
-            sh "./gradlew clean --no-daemon"
-        }
+        // stage('clean') {
+        //     sh "chmod +x gradlew"
+        //     sh "./gradlew clean --no-daemon"
+        // }
 
         // stage('nohttp') {
         //     sh "./gradlew checkstyleNohttp --no-daemon"
         // }
 
-        stage('npm install') {
-            sh "./gradlew npm_install -PnodeInstall --no-daemon"
-        }
+        // stage('npm install') {
+        //     sh "./gradlew npm_install -PnodeInstall --no-daemon"
+        // }
 
         // stage('linting') {
         //     sh "npm run lint"
@@ -54,10 +54,10 @@ node {
         //     }
         // }
 
-        stage('packaging') {
-            sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
-            archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
-        }
+        // stage('packaging') {
+        //     sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
+        //     archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+        // }
 
 
         // stage('quality analysis using sonar') {
@@ -70,9 +70,14 @@ node {
             // snykSecurity severity: 'high', 
             // snykInstallation: 'snyk',
             // snykTokenId: 'snyk_token'
-            sh "npm install -d snyk"
-            sh 'snyk test --all-projects'
-            sh 'snyk monitor --all-projects'
+            
+            // sh "npm install -d snyk"
+            sh """
+                curl -Lo ./snyk $(curl -s https://api.github.com/repos/snyk/snyk/releases/latest | grep "browser_download_url.*snyk-linux"" | cut -d ':' -f 2,3 | tr -d " | tr -d ' ')
+                chmod +x snyk
+            """
+            sh './snyk test --all-projects'
+            sh './snyk monitor --all-projects'
         }
 
         // stage('QA Team certification') {
