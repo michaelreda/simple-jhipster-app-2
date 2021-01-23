@@ -69,7 +69,7 @@ node {
         stage('security checks using snyk') {
             snykSecurity severity: 'high', 
             snykInstallation: 'snyk',
-            snykTokenId: 'snyk token'
+            snykTokenId: 'snyk_token'
         }
 
         // stage('QA Team certification') {
