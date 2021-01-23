@@ -72,7 +72,8 @@ node {
             // snykTokenId: 'snyk_token'
             
             // sh "npm install -d snyk"
-            sh 'curl -Lo ./snyk https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux'
+            sh 'mkdir ./snyk'
+            sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
             sh 'chmod +x snyk'
             sh './snyk test --all-projects'
             sh './snyk monitor --all-projects'
