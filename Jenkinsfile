@@ -15,9 +15,6 @@ node {
             sh "./gradlew clean --no-daemon"
         }
 
-        stage('QA Team certification') {
-            input "Deploy to prod?"
-        }
         // stage('nohttp') {
         //     sh "./gradlew checkstyleNohttp --no-daemon"
         // }
@@ -59,14 +56,17 @@ node {
             archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
         }
 
+        stage('QA Team certification') {
+            input "Deploy to prod?"
+        }
         stage('deployment') {
             sh "./gradlew deployHeroku --no-daemon"
         }
+    }
 
-        stage('quality analysis') {
-            withSonarQubeEnv('sonar') {
-                sh "./gradlew sonarqube --no-daemon"
-            }
+    stage('quality analysis') {
+        withSonarQubeEnv('sonar') {
+            sh "./gradlew sonarqube --no-daemon"
         }
     }
 
