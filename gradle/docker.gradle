@@ -3,7 +3,7 @@ jib {
         image = "adoptopenjdk:11-jre-hotspot"
     }
     to {
-        image = "michaelreda/simpleapp2:latest"
+        image = "michaelreda/simpleapp2"
         auth{
             username= "michaelreda"
             password= System.getenv()['dockerHubPass']
