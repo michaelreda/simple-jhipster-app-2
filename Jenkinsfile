@@ -31,28 +31,30 @@ node {
         //     sh "npm run prettier:format"
         // }
 
-        // parallel firstBranch: {
-        //      stage('backend tests') {
-        //         try {
-        //             sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
-        //         } catch(err) {
-        //             throw err
-        //         } finally {
-        //             junit '**/build/**/TEST-*.xml'
-        //         }
-        //     }
+        state('tests') {
+            parallel firstBranch: {
+                 stage('backend tests') {
+                    try {
+                        sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
+                    } catch(err) {
+                        throw err
+                    } finally {
+                        junit '**/build/**/TEST-*.xml'
+                    }
+                }
 
-        // }, secondBranch: {
-        //     stage('frontend tests') {
-        //         try {
-        //             sh "./gradlew npm_run_test -PnodeInstall --no-daemon"
-        //         } catch(err) {
-        //             throw err
-        //         } finally {
-        //             junit '**/build/test-results/TESTS-*.xml'
-        //         }
-        //     }
-        // }
+            }, secondBranch: {
+                stage('frontend tests') {
+                    try {
+                        sh "./gradlew npm_run_test -PnodeInstall --no-daemon"
+                    } catch(err) {
+                        throw err
+                    } finally {
+                        junit '**/build/test-results/TESTS-*.xml'
+                    }
+                }
+            }
+        }
 
         stage('packaging') {
             sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
@@ -68,13 +70,13 @@ node {
 
         stage('security checks using snyk') {
             snykSecurity severity: 'high', 
-            snykInstallation: 'Please define a Snyk installation in the Jenkins Global Tool Configuration. This task will not run without a Snyk installation.',
+            // snykInstallation: 'Please define a Snyk installation in the Jenkins Global Tool Configuration. This task will not run without a Snyk installation.',
             snykTokenId: 'snyk token'
         }
 
-        stage('QA Team certification') {
-            input "Deploy to prod?"
-        }
+        // stage('QA Team certification') {
+        //     input "Deploy to prod?"
+        // }
 
         // stage('deployment') {
         //     sh "./gradlew deployHeroku --no-daemon"
