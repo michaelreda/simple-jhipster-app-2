@@ -67,9 +67,12 @@ node {
         // }
 
         stage('security checks using snyk') {
-            snykSecurity severity: 'high', 
-            snykInstallation: 'snyk',
-            snykTokenId: 'snyk_token'
+            // snykSecurity severity: 'high', 
+            // snykInstallation: 'snyk',
+            // snykTokenId: 'snyk_token'
+            sh "npm install -g snyk"
+            sh './snyk test --all-projects'
+            sh './snyk monitor --all-projects'
         }
 
         // stage('QA Team certification') {
