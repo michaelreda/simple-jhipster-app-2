@@ -72,7 +72,7 @@ node {
             // snykTokenId: 'snyk_token'
             
             // sh "npm install -d snyk"
-            sh "curl -Lo ./snyk $(curl -s https://api.github.com/repos/snyk/snyk/releases/latest | grep \"browser_download_url.*snyk-linux\"\" | cut -d ':' -f 2,3 | tr -d \" | tr -d ' ')"
+            sh 'curl -Lo ./snyk https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux'
             sh 'chmod +x snyk'
             sh './snyk test --all-projects'
             sh './snyk monitor --all-projects'
