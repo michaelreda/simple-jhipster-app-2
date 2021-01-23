@@ -71,8 +71,8 @@ node {
             // snykInstallation: 'snyk',
             // snykTokenId: 'snyk_token'
             sh "npm install -d snyk"
-            sh './snyk test --all-projects'
-            sh './snyk monitor --all-projects'
+            sh 'snyk test --all-projects'
+            sh 'snyk monitor --all-projects'
         }
 
         // stage('QA Team certification') {
