@@ -70,7 +70,7 @@ node {
             // snykSecurity severity: 'high', 
             // snykInstallation: 'snyk',
             // snykTokenId: 'snyk_token'
-            sh "npm install -g snyk"
+            sh "npm install -d snyk"
             sh './snyk test --all-projects'
             sh './snyk monitor --all-projects'
         }
