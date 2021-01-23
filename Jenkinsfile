@@ -56,16 +56,17 @@ node {
         //     archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
         // }
 
+
+        stage('quality analysis') {
+            withSonarQubeEnv('sonar') {
+                sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
+            }
+        }
+
         // stage('QA Team certification') {
         //     input "Deploy to prod?"
         // }
 
-
-        stage('quality analysis') {
-            withSonarQubeEnv('sonar') {
-                sh "./gradlew -Pprod jacocoTestReport sonarqube --no-daemon"
-            }
-        }
         // stage('deployment') {
         //     sh "./gradlew deployHeroku --no-daemon"
         // }
