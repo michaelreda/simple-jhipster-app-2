@@ -23,53 +23,55 @@ node {
             sh "./gradlew npm_install -PnodeInstall --no-daemon"
         }
 
-        // stage('linting') {
-        //     sh "npm run lint"
-        // }
+        stage('linting') {
+            sh "npm run lint"
+        }
 
-        // stage('prettier') {
-        //     sh "npm run prettier:format"
-        // }
+        stage('prettier') {
+            sh "npm run prettier:format"
+        }
 
-        // stage('backend tests') {
-        //     try {
-        //         sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
-        //     } catch(err) {
-        //         throw err
-        //     } finally {
-        //         junit '**/build/**/TEST-*.xml'
-        //     }
-        // }
+        parallel {
+            stage('backend tests') {
+                try {
+                    sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
+                } catch(err) {
+                    throw err
+                } finally {
+                    junit '**/build/**/TEST-*.xml'
+                }
+            }
 
-        // stage('frontend tests') {
-        //     try {
-        //         sh "./gradlew npm_run_test -PnodeInstall --no-daemon"
-        //     } catch(err) {
-        //         throw err
-        //     } finally {
-        //         junit '**/build/test-results/TESTS-*.xml'
-        //     }
-        // }
+            stage('frontend tests') {
+                try {
+                    sh "./gradlew npm_run_test -PnodeInstall --no-daemon"
+                } catch(err) {
+                    throw err
+                } finally {
+                    junit '**/build/test-results/TESTS-*.xml'
+                }
+            }
+        }
 
-        // stage('packaging') {
-        //     sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
-        //     archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
-        // }
+        stage('packaging') {
+            sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
+            archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+        }
 
 
-        stage('quality analysis') {
+        stage('quality analysis using sonar') {
             withSonarQubeEnv('sonar') {
                 sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
             }
         }
 
-        // stage('QA Team certification') {
-        //     input "Deploy to prod?"
-        // }
+        stage('QA Team certification') {
+            input "Deploy to prod?"
+        }
 
-        // stage('deployment') {
-        //     sh "./gradlew deployHeroku --no-daemon"
-        // }
+        stage('deployment') {
+            sh "./gradlew deployHeroku --no-daemon"
+        }
     }
 
 
