@@ -72,7 +72,7 @@ node {
             sh 'npm run e2e'
         }
 
-        parallel {}
+        parallel {
             stage('quality analysis using sonar') {
                 withSonarQubeEnv('sonar') {
                     sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
