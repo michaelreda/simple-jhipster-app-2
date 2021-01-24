@@ -112,7 +112,7 @@
     "ngc": "ngc -p tsconfig.app.json",
     "cleanup": "rimraf build/resources/main/static/",
     "clean-www": "rimraf build/resources/main/static/app/{src,build/}",
-    "e2e": "protractor src/test/javascript/protractor.conf.js",
+    "e2e": "xvfb-run protractor src/test/javascript/protractor.conf.js",
     "postinstall": "node node_modules/protractor/bin/webdriver-manager update --gecko false",
     "start": "npm run webpack:dev",
     "start-tls": "npm run webpack:dev -- --env.tls",
