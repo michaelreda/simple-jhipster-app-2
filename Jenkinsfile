@@ -54,14 +54,7 @@ node {
         //     }
         // }
 
-        stage('e2e') {
-            // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
-            // sh 'npm install webdriver-manager --save-dev'
-            // sh 'node node_modules/protractor/bin/webdriver-manager start'
-            // sh 'node_modules/protractor/bin/webdriver-manager update'
-            // sh 'echo "admin" | sudo -S node_modules/webdriver-manager update'
-            sh 'npm run e2e'
-        }
+        
 
         // stage('packaging') {
         //     sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
@@ -85,7 +78,14 @@ node {
         //     sh "./gradlew deployHeroku --no-daemon"
         // }
     }
-
+    stage('e2e') {
+            // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
+        // sh 'npm install webdriver-manager --save-dev'
+        // sh 'node node_modules/protractor/bin/webdriver-manager start'
+        // sh 'node_modules/protractor/bin/webdriver-manager update'
+        // sh 'echo "admin" | sudo -S node_modules/webdriver-manager update'
+        sh 'npm run e2e'
+    }
     // stage('security checks using snyk') {
     //     snykSecurity severity: 'high', 
     //     snykInstallation: 'snyk',
