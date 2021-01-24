@@ -9,6 +9,7 @@ node {
         // stage('check java') {
         //     sh "java -version"
         // }
+        
 
         stage('clean') {
             sh "chmod +x gradlew"
@@ -61,25 +62,24 @@ node {
             archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
         }
 
-        stage('e2e tests') {
-            // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
-            // sh 'npm install webdriver-manager --save-dev'
-            // sh 'node node_modules/protractor/bin/webdriver-manager start'
-            // sh 'node_modules/protractor/bin/webdriver-manager update'
-            // sh 'echo "admin" | sudo -S node_modules/webdriver-manager update'
-            sh 'java -jar build/libs/*.jar &'
-            sh 'sleep 30s'
-            sh 'npm run e2e'
-        }
-
-        parallel 'quality analysis using sonar':{
+        parallel 'e2e tests': {
+            stage('e2e tests') {
+                // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
+                // sh 'npm install webdriver-manager --save-dev'
+                // sh 'node node_modules/protractor/bin/webdriver-manager start'
+                // sh 'node_modules/protractor/bin/webdriver-manager update'
+                // sh 'echo "admin" | sudo -S node_modules/webdriver-manager update'
+                sh 'java -jar build/libs/*.jar &'
+                sh 'sleep 30s'
+                sh 'npm run e2e'
+            }
+        }, 'quality analysis using sonar':{
                 stage('quality analysis using sonar') {
                     withSonarQubeEnv('sonar') {
                         sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
                     }
                 }
-            }, 
-            'security checks using snyk': {
+        }, 'security checks using snyk': {
                 stage('security checks using snyk') {
                     snykSecurity severity: 'high', 
                     snykInstallation: 'snyk',
