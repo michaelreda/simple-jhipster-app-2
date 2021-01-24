@@ -16,6 +16,8 @@ exports.config = {
                 : [ "--disable-gpu", "--window-size=800,600" ]
         }
     },
+    
+    chromeDriver: "../../../node_modules/chromedriver/lib/chromedriver/chromedriver.exe",
 
     directConnect: true,
 
