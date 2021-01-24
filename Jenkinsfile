@@ -32,7 +32,7 @@ node {
         }
 
         parallel 'testing BE': {
-                stage('backend tests') {
+            stage('backend tests') {
                 try {
                     sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
                 } catch(err) {
@@ -78,12 +78,12 @@ node {
                         sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
                     }
                 }
-            }, 'security checks using snyk': {
+            }, 
+            'security checks using snyk': {
                 stage('security checks using snyk') {
                     snykSecurity severity: 'high', 
                     snykInstallation: 'snyk',
                     snykTokenId: 'snyk_token'
-                }
             }
         }
 
