@@ -19,9 +19,9 @@ node {
         //     sh "./gradlew checkstyleNohttp --no-daemon"
         // }
 
-        stage('npm install') {
-            sh "./gradlew npm_install -PnodeInstall --no-daemon"
-        }
+        // stage('npm install') {
+        //     sh "./gradlew npm_install -PnodeInstall --no-daemon"
+        // }
 
         // stage('linting') {
         //     sh "npm run lint"
@@ -55,7 +55,7 @@ node {
         // }
 
         stage('e2e') {
-            sh 'webdriver-manager update'
+            sh 'npm i chromedriver'
             sh 'npm run e2e'
         }
 
