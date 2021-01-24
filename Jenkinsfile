@@ -31,7 +31,7 @@ node {
             sh "npm run prettier:format"
         }
 
-        parallel BE: {
+        parallel 'testing BE': {
                 stage('backend tests') {
                 try {
                     sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
@@ -42,7 +42,7 @@ node {
                 }
             }
 
-        }, FE: {
+        }, 'testing FE': {
             stage('frontend tests') {
                 try {
                     sh "./gradlew npm_run_test -PnodeInstall --no-daemon"
@@ -93,7 +93,7 @@ node {
             // sh 'sudo -n ./snyk monitor --all-projects'
         }
 
-        stage('QA Team certification') {
+        stage('QA Team Approval') {
             input "Deploy to prod?"
         }
 
