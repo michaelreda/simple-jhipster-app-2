@@ -17,7 +17,10 @@ exports.config = {
         }
     },
     
-    chromeDriver: "../../../node_modules/chromedriver/lib/chromedriver/chromedriver.exe",
+    // chromeDriver: "../../../node_modules/chromedriver/lib/chromedriver/chromedriver.exe",
+    chromeDriver: "../../..//node_modules/webdriver-manager/selenium/chromedriver_88.0.4324.96",
+    
+
 
     directConnect: true,
 
