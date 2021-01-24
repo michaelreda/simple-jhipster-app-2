@@ -72,25 +72,17 @@ node {
             sh 'npm run e2e'
         }
 
-
-        stage('quality analysis using sonar') {
-            withSonarQubeEnv('sonar') {
-                sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
+        parallel {}
+            stage('quality analysis using sonar') {
+                withSonarQubeEnv('sonar') {
+                    sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
+                }
             }
-        }
-
-        
-        stage('security checks using snyk') {
-            snykSecurity severity: 'high', 
-            snykInstallation: 'snyk',
-            snykTokenId: 'snyk_token'
-            
-            // sh "npm install -d snyk"
-            // sh 'mkdir ./snyk'
-            // sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
-            // sh 'chmod +x snyk'
-            // sh 'sudo -n ./snyk test --all-projects'
-            // sh 'sudo -n ./snyk monitor --all-projects'
+            stage('security checks using snyk') {
+                snykSecurity severity: 'high', 
+                snykInstallation: 'snyk',
+                snykTokenId: 'snyk_token'
+            }
         }
 
         stage('QA Team Approval') {
