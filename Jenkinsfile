@@ -19,9 +19,9 @@ node {
         //     sh "./gradlew checkstyleNohttp --no-daemon"
         // }
 
-        // stage('npm install') {
-        //     sh "./gradlew npm_install -PnodeInstall --no-daemon"
-        // }
+        stage('npm install') {
+            sh "./gradlew npm_install -PnodeInstall --no-daemon"
+        }
 
         // stage('linting') {
         //     sh "npm run lint"
@@ -55,10 +55,10 @@ node {
         // }
 
         stage('e2e') {
-            sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
+            // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
             // sh 'npm install webdriver-manager --save-dev'
             // sh 'node node_modules/protractor/bin/webdriver-manager start'
-            sh 'node_modules/protractor/bin/webdriver-manager update'
+            // sh 'node_modules/protractor/bin/webdriver-manager update'
             // sh 'echo "admin" | sudo -S node_modules/webdriver-manager update'
             sh 'npm run e2e'
         }
