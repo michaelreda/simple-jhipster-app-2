@@ -5,7 +5,7 @@ node {
         checkout scm
     }
 
-    docker.image('jhipster/jhipster:v6.10.5').inside('-u jhipster -e GRADLE_USER_HOME=.gradle') {
+    // docker.image('jhipster/jhipster:v6.10.5').inside('-u jhipster -e GRADLE_USER_HOME=.gradle') {
         // stage('check java') {
         //     sh "java -version"
         // }
@@ -61,6 +61,16 @@ node {
             archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
         }
 
+        stage('e2e tests') {
+            // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
+            // sh 'npm install webdriver-manager --save-dev'
+            // sh 'node node_modules/protractor/bin/webdriver-manager start'
+            // sh 'node_modules/protractor/bin/webdriver-manager update'
+            // sh 'echo "admin" | sudo -S node_modules/webdriver-manager update'
+            sh 'java -jar build/libs/*.jar &'
+            sh 'npm run e2e'
+        }
+
 
         // stage('quality analysis using sonar') {
         //     withSonarQubeEnv('sonar') {
@@ -74,31 +84,25 @@ node {
         //     input "Deploy to prod?"
         // }
 
+        // stage('security checks using snyk') {
+        //     snykSecurity severity: 'high', 
+        //     snykInstallation: 'snyk',
+        //     snykTokenId: 'snyk_token'
+            
+        //     // sh "npm install -d snyk"
+        //     // sh 'mkdir ./snyk'
+        //     // sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
+        //     // sh 'chmod +x snyk'
+        //     // sh 'sudo -n ./snyk test --all-projects'
+        //     // sh 'sudo -n ./snyk monitor --all-projects'
+        // }
+
         // stage('deployment') {
         //     sh "./gradlew deployHeroku --no-daemon"
         // }
-    }
-    stage('e2e') {
-            // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
-        // sh 'npm install webdriver-manager --save-dev'
-        // sh 'node node_modules/protractor/bin/webdriver-manager start'
-        // sh 'node_modules/protractor/bin/webdriver-manager update'
-        // sh 'echo "admin" | sudo -S node_modules/webdriver-manager update'
-        sh 'java -jar build/libs/*.jar'
-        sh 'npm run e2e'
-    }
-    // stage('security checks using snyk') {
-    //     snykSecurity severity: 'high', 
-    //     snykInstallation: 'snyk',
-    //     snykTokenId: 'snyk_token'
-        
-    //     // sh "npm install -d snyk"
-    //     // sh 'mkdir ./snyk'
-    //     // sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
-    //     // sh 'chmod +x snyk'
-    //     // sh 'sudo -n ./snyk test --all-projects'
-    //     // sh 'sudo -n ./snyk monitor --all-projects'
     // }
+    
+   
 
     // def dockerImage
     stage('publish docker') {
