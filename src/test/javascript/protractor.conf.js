@@ -22,7 +22,7 @@ exports.config = {
     
 
 
-    directConnect: true,
+    directConnect: false,
 
     baseUrl: 'http://localhost:8080/',
 
