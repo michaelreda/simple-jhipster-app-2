@@ -59,7 +59,7 @@ node {
             sh 'npm install webdriver-manager --save-dev'
             sh 'node node_modules/webdriver-manager start'
             sh 'whoami'
-            sh 'sudo node_modules/webdriver-manager update'
+            sh 'sudo -n node_modules/webdriver-manager update'
             sh 'npm run e2e'
         }
 
