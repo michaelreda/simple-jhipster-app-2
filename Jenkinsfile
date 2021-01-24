@@ -55,6 +55,7 @@ node {
         // }
 
         stage('e2e') {
+            sh 'webdriver-manager update'
             sh 'npm run e2e'
         }
 
