@@ -14,11 +14,12 @@ exports.config = {
             args: process.env.JHI_E2E_HEADLESS
                 ? [ "--headless", "--disable-gpu", "--window-size=800,600" ]
                 : [ "--disable-gpu", "--window-size=800,600" ],
-            binary: '/usr/bin/google-chrome-stable'
+            // binary: '/usr/bin/google-chrome-stable'
+            // binary: '../../../node_modules/chromedriver/lib/chromedriver/chromedriver.exe'
         }
     },
     
-    chromeDriver: "../../../node_modules/chromedriver/lib/chromedriver/chromedriver.exe",
+    // chromeDriver: "../../../node_modules/chromedriver/lib/chromedriver/chromedriver.exe",
     
     // chromeDriver: "../../..//node_modules/webdriver-manager/selenium/chromedriver_88.0.4324.96",
     
