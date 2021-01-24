@@ -19,9 +19,9 @@ node {
         //     sh "./gradlew checkstyleNohttp --no-daemon"
         // }
 
-        // stage('npm install') {
-        //     sh "./gradlew npm_install -PnodeInstall --no-daemon"
-        // }
+        stage('npm install') {
+            sh "./gradlew npm_install -PnodeInstall --no-daemon"
+        }
 
         // stage('linting') {
         //     sh "npm run lint"
@@ -54,6 +54,10 @@ node {
         //     }
         // }
 
+        stage('e2e') {
+            sh "npm run e2e"
+        }
+
         // stage('packaging') {
         //     sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
         //     archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
@@ -77,18 +81,18 @@ node {
         // }
     }
 
-    stage('security checks using snyk') {
-        snykSecurity severity: 'high', 
-        snykInstallation: 'snyk',
-        snykTokenId: 'snyk_token'
+    // stage('security checks using snyk') {
+    //     snykSecurity severity: 'high', 
+    //     snykInstallation: 'snyk',
+    //     snykTokenId: 'snyk_token'
         
-        // sh "npm install -d snyk"
-        // sh 'mkdir ./snyk'
-        // sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
-        // sh 'chmod +x snyk'
-        // sh 'sudo -n ./snyk test --all-projects'
-        // sh 'sudo -n ./snyk monitor --all-projects'
-    }
+    //     // sh "npm install -d snyk"
+    //     // sh 'mkdir ./snyk'
+    //     // sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
+    //     // sh 'chmod +x snyk'
+    //     // sh 'sudo -n ./snyk test --all-projects'
+    //     // sh 'sudo -n ./snyk monitor --all-projects'
+    // }
 
     def dockerImage
     stage('publish docker') {
