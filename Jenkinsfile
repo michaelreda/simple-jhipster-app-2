@@ -72,16 +72,18 @@ node {
             sh 'npm run e2e'
         }
 
-        parallel {
-            stage('quality analysis using sonar') {
-                withSonarQubeEnv('sonar') {
-                    sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
+        parallel 'quality analysis using sonar':{
+                stage('quality analysis using sonar') {
+                    withSonarQubeEnv('sonar') {
+                        sh "./gradlew -Pprod check jacocoTestReport sonarqube --no-daemon"
+                    }
                 }
-            }
-            stage('security checks using snyk') {
-                snykSecurity severity: 'high', 
-                snykInstallation: 'snyk',
-                snykTokenId: 'snyk_token'
+            }, 'security checks using snyk': {
+                stage('security checks using snyk') {
+                    snykSecurity severity: 'high', 
+                    snykInstallation: 'snyk',
+                    snykTokenId: 'snyk_token'
+                }
             }
         }
 
