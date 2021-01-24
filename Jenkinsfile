@@ -55,7 +55,7 @@ node {
         // }
 
         stage('e2e') {
-            powershell 'npm run e2e'
+            sh 'npm run e2e'
         }
 
         // stage('packaging') {
