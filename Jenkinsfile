@@ -55,7 +55,7 @@ node {
         // }
 
         stage('e2e') {
-            // sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
+            sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
             // sh 'npm install webdriver-manager --save-dev'
             // sh 'node node_modules/protractor/bin/webdriver-manager start'
             sh 'node_modules/protractor/bin/webdriver-manager update'
