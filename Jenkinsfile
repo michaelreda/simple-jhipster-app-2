@@ -66,18 +66,7 @@ node {
         //     }
         // }
 
-        stage('security checks using snyk') {
-            snykSecurity severity: 'high', 
-            snykInstallation: 'snyk',
-            snykTokenId: 'snyk_token'
-            
-            // sh "npm install -d snyk"
-            // sh 'mkdir ./snyk'
-            // sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
-            // sh 'chmod +x snyk'
-            // sh 'sudo -n ./snyk test --all-projects'
-            // sh 'sudo -n ./snyk monitor --all-projects'
-        }
+        
 
         // stage('QA Team certification') {
         //     input "Deploy to prod?"
@@ -88,6 +77,18 @@ node {
         // }
     }
 
+    stage('security checks using snyk') {
+        snykSecurity severity: 'high', 
+        snykInstallation: 'snyk',
+        snykTokenId: 'snyk_token'
+        
+        // sh "npm install -d snyk"
+        // sh 'mkdir ./snyk'
+        // sh 'wget https://github.com/snyk/snyk/releases/download/v1.439.0/snyk-linux -P ./snyk'
+        // sh 'chmod +x snyk'
+        // sh 'sudo -n ./snyk test --all-projects'
+        // sh 'sudo -n ./snyk monitor --all-projects'
+    }
 
     def dockerImage
     stage('publish docker') {
