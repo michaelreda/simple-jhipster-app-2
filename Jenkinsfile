@@ -56,7 +56,7 @@ node {
 
         stage('e2e') {
             sh 'npm i chromedriver --chromedriver_version=LATEST --save-dev'
-            sh 'node webdriver-manager start'
+            sh 'npm install webdriver-manager --save-dev'
             sh 'webdriver-manager update'
             sh 'npm run e2e'
         }
