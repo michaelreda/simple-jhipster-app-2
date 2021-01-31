@@ -21,11 +21,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   isAuthenticated(): boolean {
-    return this.accountService.isAuthenticated();
+    return false;
+    // return this.accountService.isAuthenticated();
   }
 
   login(): void {
-    this.loginModalService.open();
+    // this.loginModalService.open();
   }
 
   ngOnDestroy(): void {
